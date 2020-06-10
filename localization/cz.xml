@@ -45,6 +45,7 @@
       <taxRule iso_code_country="de" id_tax="1"/>
       <taxRule iso_code_country="ee" id_tax="1"/>
       <taxRule iso_code_country="gr" id_tax="1"/>
+      <taxRule iso_code_country="hr" id_tax="1"/>
       <taxRule iso_code_country="es" id_tax="1"/>
       <taxRule iso_code_country="fr" id_tax="1"/>
       <taxRule iso_code_country="ie" id_tax="1"/>
@@ -64,7 +65,7 @@
       <taxRule iso_code_country="sk" id_tax="1"/>
       <taxRule iso_code_country="fi" id_tax="1"/>
       <taxRule iso_code_country="se" id_tax="1"/>
-      <taxRule iso_code_country="uk" id_tax="1"/>
+      <taxRule iso_code_country="gb" id_tax="1"/>
     </taxRulesGroup>
     <taxRulesGroup name="CZ Snížená sazba (15%)">
       <taxRule iso_code_country="be" id_tax="2"/>
@@ -74,6 +75,7 @@
       <taxRule iso_code_country="de" id_tax="2"/>
       <taxRule iso_code_country="ee" id_tax="2"/>
       <taxRule iso_code_country="gr" id_tax="2"/>
+      <taxRule iso_code_country="hr" id_tax="2"/>
       <taxRule iso_code_country="es" id_tax="2"/>
       <taxRule iso_code_country="fr" id_tax="2"/>
       <taxRule iso_code_country="ie" id_tax="2"/>
@@ -93,7 +95,7 @@
       <taxRule iso_code_country="sk" id_tax="2"/>
       <taxRule iso_code_country="fi" id_tax="2"/>
       <taxRule iso_code_country="se" id_tax="2"/>
-      <taxRule iso_code_country="uk" id_tax="2"/>
+      <taxRule iso_code_country="gb" id_tax="2"/>
     </taxRulesGroup>
     <taxRulesGroup name="EU Sazba pro Virtuální produkty" auto-generated="1" eu-tax-group="virtual">
       <taxRule iso_code_country="cz" id_tax="1"/>

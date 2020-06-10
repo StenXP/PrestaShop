@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2019 PrestaShop SA and Contributors
+ * 2007-2020 PrestaShop SA and Contributors
  *
  * NOTICE OF LICENSE
  *
@@ -19,7 +19,7 @@
  * needs please refer to https://www.prestashop.com for more information.
  *
  * @author    PrestaShop SA <contact@prestashop.com>
- * @copyright 2007-2019 PrestaShop SA and Contributors
+ * @copyright 2007-2020 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * International Registered Trademark & Property of PrestaShop SA
  */
@@ -56,7 +56,7 @@ final class SupplierFieldsProvider implements EntityFieldsProviderInterface
         $fields = [
             new EntityField('id', $this->trans('ID', 'Admin.Global')),
             new EntityField('active', $this->trans('Active (0/1)', 'Admin.Advparameters.Feature')),
-            new EntityField('name', $this->trans('Name', 'Admin.Global')),
+            new EntityField('name', $this->trans('Name', 'Admin.Global'), '', true),
             new EntityField('description', $this->trans('Description', 'Admin.Global')),
             new EntityField('short_description', $this->trans('Short description', 'Admin.Catalog.Feature')),
             new EntityField('meta_title', $this->trans('Meta title', 'Admin.Global')),

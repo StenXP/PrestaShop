@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2019 PrestaShop SA and Contributors
+ * 2007-2020 PrestaShop SA and Contributors
  *
  * NOTICE OF LICENSE
  *
@@ -19,7 +19,7 @@
  * needs please refer to https://www.prestashop.com for more information.
  *
  * @author    PrestaShop SA <contact@prestashop.com>
- * @copyright 2007-2019 PrestaShop SA and Contributors
+ * @copyright 2007-2020 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * International Registered Trademark & Property of PrestaShop SA
  */
@@ -138,9 +138,7 @@ class CurrencyType extends TranslatorAwareType
             ])
             ->add('symbols', TranslatableType::class, [
                 'type' => TextType::class,
-                'constraints' => [
-                    new DefaultLanguage(),
-                ],
+                'required' => false,
                 'options' => [
                     'constraints' => [
                         new Length([
@@ -217,12 +215,15 @@ class CurrencyType extends TranslatorAwareType
                     ]),
                 ],
                 'invalid_message' => $this->trans(
-                    'This field is invalid, it must contain a positive integer',
-                    'Admin.Notifications.Error'
+                    'Please enter a positive value',
+                    'Admin.Orderscustomers.Notification'
                 ),
             ])
             ->add('active', SwitchType::class, [
                 'required' => false,
+            ])
+            ->add('transformations', TranslatableType::class, [
+                'type' => HiddenType::class,
             ])
         ;
 

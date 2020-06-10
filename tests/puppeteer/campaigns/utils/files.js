@@ -15,13 +15,22 @@ module.exports = {
    * Check File existence
    * @param fileName
    * @param timeDelay
+   * @param isPartialName
+   * @param fileExtension
    * @return boolean, true if exist, false if not
    */
-  async checkFileExistence(fileName, timeDelay = 5000) {
+  async doesFileExist(fileName, timeDelay = 5000, isPartialName = false, fileExtension = '') {
     let found = false;
-    for (let i = 0; i <= timeDelay && !found; i += 10) {
-      await (new Promise(resolve => setTimeout(resolve, 10)));
-      found = await fs.existsSync(`${global.BO.DOWNLOAD_PATH}/${fileName}`);
+    for (let i = 0; i <= timeDelay && !found; i += 100) {
+      await (new Promise(resolve => setTimeout(resolve, 100)));
+      if (isPartialName) {
+        found = (await fs
+          .readdirSync(global.BO.DOWNLOAD_PATH)
+          .filter(fn => fn.startsWith(fileName) && fn.endsWith(fileExtension))
+        ) !== [];
+      } else {
+        found = await fs.existsSync(`${global.BO.DOWNLOAD_PATH}/${fileName}`);
+      }
     }
     return found;
   },
@@ -44,7 +53,7 @@ module.exports = {
    * @param text
    * @return boolean, true if text exist, false if not
    */
-  async checkTextInPDF(fileName, text) {
+  async isTextInPDF(fileName, text) {
     const pdf = await PDFJS.getDocument(`${global.BO.DOWNLOAD_PATH}/${fileName}`).promise;
     const maxPages = pdf.numPages;
     const pageTextPromises = [];
@@ -77,5 +86,75 @@ module.exports = {
       /* eslint-enable no-loop-func */
     }
     return imageNumber;
+  },
+  /**
+   * Generate report filename
+   * @return {Promise<string>}
+   */
+  async generateReportFilename() {
+    const curDate = new Date();
+    return `report-${
+      curDate.toJSON().slice(0, 10)}-${
+      curDate.getHours()}-${
+      curDate.getMinutes()}-${
+      curDate.getSeconds()}`;
+  },
+  /**
+   * Create directory if not exist
+   * @param path
+   * @return {Promise<void>}
+   */
+  async createDirectory(path) {
+    if (!fs.existsSync(path)) await fs.mkdirSync(path);
+  },
+  /**
+   * Create file with content
+   * @param path
+   * @param filename
+   * @param content
+   * @return {Promise<void>}
+   */
+  async createFile(path, filename, content) {
+    await fs.writeFile(`${path}/${filename}`, content, (err) => {
+      if (err) {
+        throw new Error(err);
+      }
+    });
+  },
+  /**
+   * Check text in file
+   * @param fileName
+   * @param textToCheckWith
+   * @param ignoreSpaces, true to delete all spaces before the check
+   * @param ignoreTimeZone, true to delete timezone string added to some image url
+   * @return {Promise<boolean>}
+   */
+  async isTextInFile(fileName, textToCheckWith, ignoreSpaces = false, ignoreTimeZone = false) {
+    let fileText = await fs.readFileSync(`${global.BO.DOWNLOAD_PATH}/${fileName}`, 'utf8');
+    let text = textToCheckWith;
+    if (ignoreSpaces) {
+      fileText = await fileText.replace(/\s/g, '');
+      text = await text.replace(/\s/g, '');
+    }
+    if (ignoreTimeZone) {
+      fileText = await fileText.replace(/\?time=\d+/g, '', '');
+      text = await text.replace(/\?time=\d+/g, '', '');
+    }
+    return fileText.includes(text);
+  },
+
+  /**
+   * Get fileName with
+   * @param dir
+   * @param fileStartWith
+   * @param fileEndWith
+   * @return {Promise<string>}
+   */
+  async getFileNameFromDir(dir, fileStartWith = '', fileEndWith = '') {
+    const filesNames = await fs.readdirSync(dir).filter(fn => fn.startsWith(fileStartWith) && fn.endsWith(fileEndWith));
+    if (filesNames.length === 0) {
+      throw Error('File was not found in directory');
+    }
+    return filesNames[0];
   },
 };

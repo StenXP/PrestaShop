@@ -18,5 +18,23 @@ module.exports = {
       decimals: 2,
       enabled: true,
     },
+    toman: {
+      name: 'Iranian toman',
+      frName: 'Toman iranien',
+      symbol: 'TMN',
+      isoCode: 'TMN',
+      exchangeRate: 4666.539,
+      decimals: 2,
+      enabled: true,
+    },
+    chileanPeso: {
+      name: 'Chilean Peso',
+      frName: 'peso chilien',
+      symbol: '$',
+      isoCode: 'CLP',
+      exchangeRate: 862.172868,
+      decimals: 0,
+      enabled: true,
+    },
   },
 };
